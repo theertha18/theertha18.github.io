@@ -24,48 +24,51 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Theertha Bharathan · Software Engineer, AI/ML & Backend</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%231f1619'/%3E%3Ctext%20x='32'%20y='43'%20font-family='Arial,Helvetica,sans-serif'%20font-size='30'%20font-weight='700'%20fill='%23e37a95'%20text-anchor='middle'%3ETB%3C/text%3E%3C/svg%3E">
+
 <meta name="description" content="Software engineer building ML and backend systems end-to-end across mobility, industrial IoT, and clinical research. Based in Frankfurt am Main." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0d1117;
-    --bg-2:#11161f;
-    --surface:#161c27;
-    --surface-2:#1b222e;
-    --line:#252d3a;
-    --text:#e7edf5;
-    --muted:#92a0b5;
-    --faint:#5e6b7e;
-    --accent:#38e0c5;       /* signal teal */
-    --accent-deep:#1fb9a0;
-    --accent-glow:rgba(56,224,197,.16);
-    --warm:#ffb454;          /* used very sparingly */
+    --bg:#161013;
+    --bg-2:#1c1419;
+    --surface:#1f1619;
+    --surface-2:#271c20;
+    --line:#352830;
+    --text:#f1e9eb;
+    --muted:#b6a6ac;
+    --faint:#7d6b72;
+    --accent:#e37a95;        /* wine rose */
+    --accent-deep:#c75a79;
+    --accent-glow:rgba(227,122,149,.16);
+    --warm:#dca85e;          /* gold, used sparingly */
     --radius:16px;
     --maxw:1080px;
-    --shadow:0 18px 50px -20px rgba(0,0,0,.7);
+    --shadow:0 18px 50px -20px rgba(0,0,0,.72);
   }
   html[data-theme="light"]{
-    --bg:#f6f7f4;
-    --bg-2:#eef0ec;
-    --surface:#ffffff;
-    --surface-2:#f3f5f1;
-    --line:#e1e4dd;
-    --text:#14181f;
-    --muted:#566072;
-    --faint:#8a93a3;
-    --accent:#0fa78d;
-    --accent-deep:#0c8a74;
-    --accent-glow:rgba(15,167,141,.12);
-    --warm:#c9760b;
-    --shadow:0 18px 50px -24px rgba(20,30,40,.28);
+    --bg:#f8f3f4;
+    --bg-2:#efe6e8;
+    --surface:#fffdfd;
+    --surface-2:#f6eef0;
+    --line:#e7dade;
+    --text:#221a1c;
+    --muted:#6a5a60;
+    --faint:#9c8b91;
+    --accent:#a8324f;
+    --accent-deep:#8a2a41;
+    --accent-glow:rgba(168,50,79,.12);
+    --warm:#b5763a;
+    --shadow:0 18px 50px -24px rgba(60,30,35,.22);
   }
 
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;background:var(--bg)}
+  #constellation{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
   body{
-    background:var(--bg);
+    background:transparent;
     color:var(--text);
     font-family:'Inter',system-ui,sans-serif;
     line-height:1.6;
@@ -131,7 +134,11 @@
   @keyframes pulse{0%{transform:scale(1);opacity:.5}70%{transform:scale(2.4);opacity:0}100%{opacity:0}}
   .hero h1{font-size:clamp(2.3rem,5.2vw,3.7rem);font-weight:800;margin-bottom:22px}
   .hero h1 .hl{color:var(--accent)}
-  .hero .lead{font-size:1.12rem;color:var(--muted);max-width:34rem;margin-bottom:30px}
+  .hero-loc{font-family:'JetBrains Mono';font-size:.82rem;letter-spacing:.12em;color:var(--accent);margin-bottom:18px;display:inline-block}
+  .hero h1.hero-name{font-family:'Sora';font-size:clamp(2.9rem,7.6vw,5.1rem);font-weight:800;line-height:1.01;letter-spacing:-.035em;margin-bottom:16px}
+  .hero-role{font-family:'Sora';font-weight:700;font-size:clamp(1.3rem,3.3vw,2.1rem);line-height:1.1;letter-spacing:-.01em;color:var(--accent);margin-bottom:22px}
+  .hero .lead{font-size:1.12rem;color:var(--muted);max-width:34rem;margin-bottom:26px}
+  .hero .status{margin-bottom:26px}
   .hero-cta{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:30px}
   .hero-socials{display:flex;gap:1.3rem;font-family:'JetBrains Mono';font-size:.82rem}
   .hero-socials a{color:var(--muted);transition:.2s;display:inline-flex;align-items:center;gap:.35rem}
@@ -148,7 +155,7 @@
     letter-spacing:-.04em;z-index:2}
   .hero-portrait .ring{position:absolute;border:1px solid var(--accent);border-radius:50%;opacity:.18}
   .hero-portrait .r1{inset:18%}.hero-portrait .r2{inset:30%}.hero-portrait .r3{inset:42%}
-  .hero-portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+  .hero-portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 22%;z-index:1}
   .hero-portrait .tag{z-index:2;position:absolute;bottom:16px;left:16px;font-family:'JetBrains Mono';
     font-size:.72rem;color:var(--muted);background:color-mix(in srgb,var(--bg) 70%,transparent);
     border:1px solid var(--line);padding:.25rem .6rem;border-radius:8px}
@@ -258,6 +265,8 @@
   .lang-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:.9rem}
   .lang-row:last-child{border-bottom:none}
   .lang-row .lvl{font-family:'JetBrains Mono';font-size:.74rem;color:var(--accent)}
+  .lang-note{margin-top:12px;font-size:.78rem;color:var(--muted);line-height:1.5}
+  .lang-note strong{color:var(--text);font-weight:600}
   .award{display:flex;gap:10px;margin-bottom:14px;font-size:.88rem;color:var(--muted)}
   .award:last-child{margin-bottom:0}
   .award .ic{color:var(--warm);flex-shrink:0}
@@ -303,6 +312,8 @@
 </head>
 <body>
 
+<canvas id="constellation"></canvas>
+
 <!-- NAV -->
 <nav id="nav">
   <div class="wrap nav-inner">
@@ -329,9 +340,11 @@
 <header class="hero" id="top">
   <div class="wrap hero-grid">
     <div>
-      <span class="status"><span class="live"></span>Open to roles · Frankfurt, DE · English C1 / German B1</span>
-      <h1>I turn messy signals<br>into systems people <span class="hl">trust.</span></h1>
-      <p class="lead">Software engineer building <strong>ML and backend systems end to end</strong>, from ECU logs and sensor streams to deployed APIs across mobility, industrial IoT and clinical research.</p>
+      <span class="hero-loc">Frankfurt am Main, Germany</span>
+      <h1 class="hero-name">Theertha<br>Bharathan</h1>
+      <div class="hero-role">Software Engineer · AI/ML &amp; Backend</div>
+      <p class="lead">I build machine learning and backend systems that run in <span class="hl" style="color:var(--accent);font-weight:600">production</span>.</p>
+      <span class="status"><span class="live"></span>Open to roles · Frankfurt, DE · English C1 · German B1, working towards B2</span>
       <div class="hero-cta">
         <a class="btn btn-primary" href="#work">View my work →</a>
         <a class="btn" href="#contact">Get in touch</a>
@@ -344,11 +357,10 @@
     </div>
     <div class="hero-portrait">
       <span class="ring r1"></span><span class="ring r2"></span><span class="ring r3"></span>
-      <!-- Your photo. Upload it to the images folder named exactly  profile.jpg
+      <!-- Your photo. Upload it to the images folder named exactly  profile.png
            (or change the filename below to match what you upload).
            If the file isn't found, it falls back to the "TB" initials automatically. -->
-      <img src="images/profile.jpg" alt="Theertha Bharathan" onerror="this.outerHTML='&lt;span class=&quot;monogram&quot;&gt;TB&lt;/span&gt;'">
-      <span class="tag mono">// Frankfurt am Main</span>
+      <img src="images/profile.png" alt="Theertha Bharathan" onerror="this.outerHTML='&lt;span class=&quot;monogram&quot;&gt;TB&lt;/span&gt;'">
     </div>
   </div>
   <svg class="wave" viewBox="0 0 1200 160" preserveAspectRatio="none">
@@ -392,11 +404,15 @@
     <div class="skill-groups">
       <div class="skill-card reveal">
         <h3>Languages &amp; Data</h3>
-        <div class="chips"><span class="chip">Python</span><span class="chip">SQL</span><span class="chip">Go</span><span class="chip">Bash</span><span class="chip">JavaScript</span><span class="chip">C++ (FFI)</span></div>
+        <div class="chips"><span class="chip">Python</span><span class="chip">SQL</span><span class="chip">SQLite</span><span class="chip">Go</span><span class="chip">Bash</span><span class="chip">JavaScript</span><span class="chip">Dart / Flutter</span><span class="chip">C++ (FFI)</span></div>
       </div>
       <div class="skill-card reveal">
         <h3>AI / ML</h3>
         <div class="chips"><span class="chip">Scikit-learn</span><span class="chip">TensorFlow</span><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">Feature Engineering</span><span class="chip">SHAP / XAI</span><span class="chip">OpenCV</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3>GenAI / LLM</h3>
+        <div class="chips"><span class="chip">RAG</span><span class="chip">LLMs (Gemini, Claude)</span><span class="chip">Vector DBs (Chroma)</span><span class="chip">Embeddings</span><span class="chip">AI Agents / Tool-calling</span><span class="chip">Prompt Engineering</span></div>
       </div>
       <div class="skill-card reveal">
         <h3>Backend &amp; APIs</h3>
@@ -404,7 +420,11 @@
       </div>
       <div class="skill-card reveal">
         <h3>Cloud &amp; DevOps</h3>
-        <div class="chips"><span class="chip">Docker</span><span class="chip">Jenkins (CI/CD)</span><span class="chip">Linux</span><span class="chip">Azure</span><span class="chip">AWS</span><span class="chip">Snapcraft</span></div>
+        <div class="chips"><span class="chip">Docker</span><span class="chip">Jenkins (CI/CD)</span><span class="chip">GitHub Actions</span><span class="chip">Linux</span><span class="chip">Azure</span><span class="chip">AWS</span><span class="chip">Snapcraft</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3>Currently learning</h3>
+        <div class="chips"><span class="chip">Kubernetes</span><span class="chip">Terraform</span><span class="chip">Prometheus</span><span class="chip">Grafana</span></div>
       </div>
       <div class="skill-card reveal">
         <h3>Practice</h3>
@@ -664,8 +684,9 @@
       <div class="info-card reveal">
         <h3>Languages</h3>
         <div class="lang-row"><span>English</span><span class="lvl">C1</span></div>
-        <div class="lang-row"><span>German</span><span class="lvl">B1 →</span></div>
+        <div class="lang-row"><span>German</span><span class="lvl">B1 → B2</span></div>
         <div class="lang-row"><span>Malayalam</span><span class="lvl">Native</span></div>
+        <div class="lang-note">telc Deutsch B1 certified, grade <strong>Gut</strong> (good). Currently working towards B2.</div>
       </div>
       <div class="info-card reveal">
         <h3>Honours</h3>
@@ -822,6 +843,61 @@
       sendBtn.textContent = original;
     }
   });
+</script>
+<script>
+  /* constellation background */
+  (function(){
+    const canvas=document.getElementById('constellation');
+    if(!canvas)return;
+    const ctx=canvas.getContext('2d');
+    const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const LABELS=['Python','RAG','FastAPI','Docker','Scikit-learn','OpenCV','MQTT','LLMs','Go','ChromaDB','CI/CD','SHAP'];
+    let w,h,dpr,pts,rgb,fnt,raf;
+    let mx=-999,my=-999,tx=0,ty=0,ox=0,oy=0;
+    function col(v,fb){
+      let c=getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+      if(c[0]==='#'){c=c.slice(1);if(c.length===3)c=c.split('').map(function(x){return x+x;}).join('');const n=parseInt(c,16);return[n>>16&255,n>>8&255,n&255];}
+      const m=c.match(/\d+/g);return m?[+m[0],+m[1],+m[2]]:fb;
+    }
+    const MAX=130,MMAX=175;
+    function size(){
+      dpr=Math.min(window.devicePixelRatio||1,2);
+      w=window.innerWidth;h=window.innerHeight;
+      canvas.width=w*dpr;canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+      const count=Math.min(92,Math.floor(w*h/15000));
+      const nlab=Math.min(LABELS.length,8);
+      pts=[];
+      for(let i=0;i<count;i++)pts.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,label:i<nlab?LABELS[i]:null});
+      rgb=col('--accent',[227,122,149]);fnt=col('--faint',[125,107,114]);
+    }
+    function draw(){
+      ox+=(tx-ox)*.06;oy+=(ty-oy)*.06;
+      ctx.clearRect(0,0,w,h);
+      const r=rgb[0],g=rgb[1],b=rgb[2],Fr=fnt[0],Fg=fnt[1],Fb=fnt[2];
+      for(let i=0;i<pts.length;i++){
+        const p=pts[i];
+        if(!reduce){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;}
+        const px=p.x+ox,py=p.y+oy;
+        ctx.beginPath();ctx.arc(px,py,p.label?2:1.4,0,6.283);ctx.fillStyle='rgba('+r+','+g+','+b+','+(p.label?1:.85)+')';ctx.fill();
+        if(p.label){ctx.font='11px "JetBrains Mono",monospace';ctx.fillStyle='rgba('+Fr+','+Fg+','+Fb+',.55)';ctx.fillText(p.label,px+8,py+4);}
+        for(let j=i+1;j<pts.length;j++){
+          const q=pts[j],dx=p.x-q.x,dy=p.y-q.y,d=Math.sqrt(dx*dx+dy*dy);
+          if(d<MAX){ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(q.x+ox,q.y+oy);ctx.strokeStyle='rgba('+r+','+g+','+b+','+(.45*(1-d/MAX))+')';ctx.lineWidth=1;ctx.stroke();}
+        }
+        if(mx>-900){const ax=px-mx,ay=py-my,dm=Math.sqrt(ax*ax+ay*ay);
+          if(dm<MMAX){ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(mx,my);ctx.strokeStyle='rgba('+r+','+g+','+b+','+(.6*(1-dm/MMAX))+')';ctx.lineWidth=1;ctx.stroke();}}
+      }
+      if(!reduce)raf=requestAnimationFrame(draw);
+    }
+    function start(){cancelAnimationFrame(raf);size();draw();}
+    function move(e){const t=e.touches?e.touches[0]:e;mx=t.clientX;my=t.clientY;tx=(window.innerWidth/2-mx)*.03;ty=(window.innerHeight/2-my)*.03;if(reduce)draw();}
+    window.addEventListener('mousemove',move,{passive:true});
+    window.addEventListener('touchmove',move,{passive:true});
+    window.addEventListener('mouseout',function(){mx=my=-999;tx=ty=0;});
+    window.addEventListener('resize',start);
+    new MutationObserver(function(){rgb=col('--accent',[227,122,149]);fnt=col('--faint',[125,107,114]);if(reduce)draw();}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+    start();
+  })();
 </script>
 </body>
 </html>
