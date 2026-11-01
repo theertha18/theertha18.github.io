@@ -215,6 +215,7 @@
   .repo:hover{color:var(--accent);border-color:var(--accent)}
   .repo svg{width:17px;height:17px;fill:currentColor}
   .proj:has(.repo) h3{padding-right:44px}
+  .wip{display:inline-block;margin-left:8px;font-family:'JetBrains Mono';font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--warm);border:1px solid color-mix(in srgb,var(--warm) 45%,var(--line));border-radius:100px;padding:.12rem .5rem;vertical-align:middle}
   /* expandable "how" */
   .how{position:relative;margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
   .how summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
@@ -327,8 +328,8 @@
 <header class="hero" id="top">
   <div class="wrap hero-grid">
     <div>
-      <span class="status"><span class="live"></span>Open to Opportunities · Frankfurt, DE · English C1 / German B1</span>
-      <h1>I turn messy data<br>into systems people <span class="hl">trust.</span></h1>
+      <span class="status"><span class="live"></span>Open to roles · Frankfurt, DE · English C1 / German B1</span>
+      <h1>I turn messy signals<br>into systems people <span class="hl">trust.</span></h1>
       <p class="lead">Software engineer building <strong>ML and backend systems end to end</strong>, from ECU logs and sensor streams to deployed APIs across mobility, industrial IoT and clinical research.</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="#work">View my work →</a>
@@ -342,8 +343,8 @@
     </div>
     <div class="hero-portrait">
       <span class="ring r1"></span><span class="ring r2"></span><span class="ring r3"></span>
-      <img src="images/profile.jpg" alt="Theertha Bharathan" style="width: 100%; height: 100%; object-fit: contain; position: absolute; inset: 0; z-index: 1; background-color: var(--surface-2);" />
-      <span class="tag mono" style="z-index: 2;">// Frankfurt am Main</span>
+      <span class="monogram">TB</span>
+      <span class="tag mono">// Frankfurt am Main</span>
     </div>
   </div>
   <svg class="wave" viewBox="0 0 1200 160" preserveAspectRatio="none">
@@ -422,6 +423,24 @@
       <p>My CV lists the outcomes. Here's the reasoning underneath, the real problem, the calls I made, and the parts that were hard. Tap <span class="mono" style="color:var(--accent)">How I built it</span> on any card.</p>
     </div>
     <div class="proj-grid">
+
+      <article class="proj reveal">
+        <div class="domain">LLM · RAG &amp; Agents <span class="wip">In progress</span></div>
+        <h3>RAG Agent</h3>
+        <p class="summary">A document question-answering system I'm building from scratch. Drop in your docs, it embeds them into a local vector store, and a FastAPI endpoint answers questions grounded in them. On top sits an agent that decides when to search, query a database, or pull live GitHub data.</p>
+        <div class="metric">15/15 retrieval hit rate · MRR 1.00 · 41 tests in CI</div>
+        <div class="tags"><span>Python</span><span>FastAPI</span><span>ChromaDB</span><span>Gemini/Anthropic</span><span>SQLite</span><span>GitHub Actions</span></div>
+        <a class="repo" href="https://github.com/theertha18/rag-agent" target="_blank" rel="noopener" aria-label="View code on GitHub" title="View code on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+        <details class="how">
+          <summary>How I built it <span class="chev">›</span></summary>
+          <div class="how-body">
+            <div class="row"><div class="lbl">What it does</div><div class="txt">Drop .txt or .md files into a docs folder and it embeds them into a local <strong>Chroma</strong> vector store. A <strong>FastAPI</strong> endpoint then answers questions grounded in the retrieved chunks and hands back the exact sources it used. Gemini runs by default, with Anthropic available by setting one environment variable.</div></div>
+            <div class="row"><div class="lbl">The agent on top</div><div class="txt">Plain retrieval always does the same thing, so I added a <strong>tool-calling agent in plain Python</strong>, no framework, which keeps every step visible. The model chooses between a document search, a read-only SQLite lookup for exact lists and counts, and a live GitHub API call. My code runs the real function and feeds the result back, looping until it can answer, capped at five rounds.</div></div>
+            <div class="row"><div class="lbl">How I measure it</div><div class="txt">I wrote an <strong>evaluation harness</strong> that queries the vector store the same way the API does, with no LLM calls, and reports source hit rate, keyword hit rate and mean reciprocal rank. That let me tune chunking and retrieval against real numbers instead of guesswork. It currently scores <strong>15 out of 15</strong> on source hits with a mean reciprocal rank of 1.00.</div></div>
+            <div class="row"><div class="lbl">Where it's going</div><div class="txt">It's a work in progress and I keep the rough edges written down rather than hidden. Meaning-based search still struggles with exact names, so hybrid search is next, along with an agent endpoint in the API and a Docker plus Kubernetes deployment. 41 offline tests and a lint check run on every push through GitHub Actions.</div></div>
+          </div>
+        </details>
+      </article>
 
       <article class="proj reveal">
         <div class="domain">Applied ML · Automotive</div>
@@ -561,7 +580,7 @@
 
       <div class="job reveal">
         <span class="node"></span>
-        <div class="when">09/2025 to now</div>
+        <div class="when">09/2025 to 04/2026</div>
         <h3>Research Assistant (HiWi)</h3>
         <div class="org">University Medical Center Mainz · Mainz, Germany</div>
         <ul>
@@ -630,7 +649,7 @@
         <div class="edu-item">
           <div class="deg">M.Eng. Information Technology</div>
           <div class="sch">Frankfurt University of Applied Sciences, Germany</div>
-          <div class="yr">10/2022 to 02/2026</div>
+          <div class="yr">10/2022 to 06/2025</div>
         </div>
         <div class="edu-item">
           <div class="deg">B.E. Electronics &amp; Communication</div>
@@ -677,7 +696,7 @@
           <!-- EDIT: WEB3FORMS — paste your access key below.
                Get one free (no account) at https://web3forms.com :
                enter your email, they send you an access key, paste it here. -->
-          <input type="hidden" name="access_key" value="0ca6c734-7233-464d-ad00-b99794be6867">
+          <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
           <input type="hidden" name="subject" value="New message from your portfolio">
           <input type="hidden" name="from_name" value="Portfolio contact form">
           <!-- spam honeypot: leave empty -->
