@@ -148,7 +148,8 @@
     letter-spacing:-.04em;z-index:2}
   .hero-portrait .ring{position:absolute;border:1px solid var(--accent);border-radius:50%;opacity:.18}
   .hero-portrait .r1{inset:18%}.hero-portrait .r2{inset:30%}.hero-portrait .r3{inset:42%}
-  .hero-portrait .tag{position:absolute;bottom:16px;left:16px;font-family:'JetBrains Mono';
+  .hero-portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+  .hero-portrait .tag{z-index:2;position:absolute;bottom:16px;left:16px;font-family:'JetBrains Mono';
     font-size:.72rem;color:var(--muted);background:color-mix(in srgb,var(--bg) 70%,transparent);
     border:1px solid var(--line);padding:.25rem .6rem;border-radius:8px}
 
@@ -343,7 +344,10 @@
     </div>
     <div class="hero-portrait">
       <span class="ring r1"></span><span class="ring r2"></span><span class="ring r3"></span>
-      <span class="monogram">TB</span>
+      <!-- Your photo. Upload it to the images folder named exactly  profile.jpg
+           (or change the filename below to match what you upload).
+           If the file isn't found, it falls back to the "TB" initials automatically. -->
+      <img src="images/profile.jpg" alt="Theertha Bharathan" onerror="this.outerHTML='&lt;span class=&quot;monogram&quot;&gt;TB&lt;/span&gt;'">
       <span class="tag mono">// Frankfurt am Main</span>
     </div>
   </div>
